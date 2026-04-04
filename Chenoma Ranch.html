@@ -8,7 +8,6 @@
         :root {
             --green: #2e7d32;
             --darkgreen: #1b5e20;
-            --earth: #5d4037;
             --accent: #f57c00;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,7 +15,6 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.7;
             color: #333;
-            background: #f8f5f0;
         }
         header {
             background: rgba(0,0,0,0.75);
@@ -42,7 +40,7 @@
 
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), 
                         url('https://i.imgur.com/D5ZOxq5.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
@@ -50,28 +48,27 @@
             text-align: center;
             color: white;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Foreground image card - your new image */
+        /* Transparent background - only the logo is visible */
         .hero-foreground {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 460px;
+            max-width: 680px;           /* Larger size */
             width: 92%;
-            background: rgba(255, 255, 255, 0.94);
-            border-radius: 24px;
-            padding: 25px 20px;
-            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
-            text-align: center;
             z-index: 2;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
         }
         .hero-foreground img {
             width: 100%;
-            border-radius: 16px;
-            margin-bottom: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            height: auto;
+            display: block;
+            background: transparent;    /* Ensures transparency */
         }
 
         .hero-content {
@@ -79,14 +76,15 @@
             z-index: 3;
             max-width: 800px;
             padding: 0 20px;
+            margin-top: 260px;          /* Pushed down to avoid overlap */
         }
         .hero h1 {
-            font-size: 3.7rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             line-height: 1.1;
         }
         .hero p {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 2rem;
             opacity: 0.95;
         }
@@ -110,7 +108,6 @@
             margin-bottom: 2.5rem;
             color: var(--green);
         }
-
         .about-text {
             max-width: 780px;
             margin: 0 auto 40px;
@@ -118,32 +115,17 @@
             text-align: center;
         }
 
-        .social-section {
-            text-align: center;
-            padding: 70px 5%;
-            background: white;
-        }
-        .social-icons a {
-            font-size: 3.2rem;
-            margin: 0 25px;
-            color: var(--green);
-            transition: all 0.3s;
-        }
-        .social-icons a:hover {
-            transform: scale(1.25);
-            color: var(--accent);
-        }
-
         footer {
-            background: var(--earth);
+            background: #5d4037;
             color: white;
             text-align: center;
             padding: 50px 20px;
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            .hero-foreground { max-width: 360px; padding: 20px 15px; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero-foreground { max-width: 460px; }
+            .hero-content { margin-top: 180px; }
         }
     </style>
 </head>
@@ -158,20 +140,19 @@
         </div>
     </header>
 
-    <!-- Hero with your new image in front -->
+    <!-- Hero - Only your logo PNG visible with transparent background -->
     <section class="hero">
-        <!-- Your new image (RxsbZO3.png from Danielb23) -->
         <div class="hero-foreground">
-            <img src="RxsbZO3.png" alt="Finca Los Valles Verdes" />
+            <img src="https://i.imgur.com/ZwBuyZK.png">
         </div>
 
         <div class="hero-content">
             <div class="coming-soon-badge">PRÓXIMAMENTE</div>
             <h1>Finca Los Valles Verdes</h1>
             <p>Una finca familiar en los hermosos valles de Venezuela.<br>
-            Pronto podrás visitarnos y vivir experiencias auténticas de agroturismo en contacto con la naturaleza.</p>
-            
-            <button onclick="document.getElementById('nosotros').scrollIntoView({behavior: 'smooth'})" 
+            Pronto podrás visitarnos y vivir experiencias auténticas de agroturismo.</p>
+           
+            <button onclick="document.getElementById('nosotros').scrollIntoView({behavior: 'smooth'})"
                     style="background: white; color: var(--darkgreen); padding: 14px 34px; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
                 Conoce nuestra historia
             </button>
@@ -182,7 +163,7 @@
     <section id="nosotros">
         <h2>¿Quiénes Somos?</h2>
         <p class="about-text">
-            Finca Los Valles Verdes es un proyecto familiar dedicado a la agricultura sostenible en Venezuela. 
+            Finca Los Valles Verdes es un proyecto familiar dedicado a la agricultura sostenible en Venezuela.<br><br>
             Cultivamos con respeto por la tierra, cuidamos nuestros animales y soñamos con compartir la belleza del campo venezolano con familias y visitantes.<br><br>
             Estamos trabajando con cariño para abrir nuestras puertas muy pronto.
         </p>
@@ -200,36 +181,14 @@
     </section>
 
     <!-- Social -->
-    <section class="social-section">
+    <section style="text-align: center; padding: 70px 5%; background: white;">
         <h2>Síguenos en redes sociales</h2>
         <p style="font-size: 1.25rem; max-width: 550px; margin: 0 auto 40px;">
             Sé el primero en enterarte cuando abramos las visitas y novedades de la finca.
         </p>
-        <div class="social-icons">
-            <a href="https://facebook.com" target="_blank">📘</a>
-            <a href="https://instagram.com" target="_blank">📷</a>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contacto" style="background: #f8f5f0;">
-        <h2>¿Quieres más información?</h2>
-        <p style="text-align: center; max-width: 620px; margin: 0 auto 40px; font-size: 1.2rem;">
-            Déjanos tu correo y te avisaremos cuando estemos listos para recibirte.
-        </p>
-        <div style="max-width: 580px; margin: 0 auto;">
-            <form onsubmit="event.preventDefault(); alert('¡Gracias! Te contactaremos pronto cuando la finca esté lista.'); this.reset();" style="display: flex; flex-direction: column; gap: 15px;">
-                <input type="text" placeholder="Tu Nombre" required 
-                       style="padding: 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.05rem;">
-                <input type="email" placeholder="Correo Electrónico" required 
-                       style="padding: 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.05rem;">
-                <textarea placeholder="Mensaje (opcional)" rows="4" 
-                          style="padding: 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.05rem;"></textarea>
-                <button type="submit" 
-                        style="background: var(--green); color: white; padding: 16px; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer;">
-                    Enviar Mensaje
-                </button>
-            </form>
+        <div style="font-size: 3.2rem;">
+            <a href="https://facebook.com" target="_blank" style="margin: 0 25px; color: var(--green);">📘</a>
+            <a href="https://instagram.com" target="_blank" style="margin: 0 25px; color: var(--green);">📷</a>
         </div>
     </section>
 
