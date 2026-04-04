@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Farm Name - Fresh from Utah Fields</title>
+    <title>Finca Los Valles Verdes | Próximamente</title>
     <style>
         :root {
             --green: #2e7d32;
+            --darkgreen: #1b5e20;
             --earth: #5d4037;
             --accent: #f57c00;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
             color: #333;
+            background: #f8f5f0;
         }
         header {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             position: fixed;
             width: 100%;
             z-index: 1000;
@@ -26,240 +28,224 @@
             justify-content: space-between;
             align-items: center;
         }
-        nav a {
+        .logo {
+            font-size: 1.9rem;
+            font-weight: bold;
             color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 500;
         }
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 18px;
+            text-decoration: none;
+        }
+
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://i.imgur.com/D5ZOxq5.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            position: relative;
         }
+
+        /* Foreground image card - your new image */
+        .hero-foreground {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 460px;
+            width: 92%;
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 24px;
+            padding: 25px 20px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
+            text-align: center;
+            z-index: 2;
+        }
+        .hero-foreground img {
+            width: 100%;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
         .hero-content {
+            position: relative;
+            z-index: 3;
             max-width: 800px;
             padding: 0 20px;
         }
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.7rem;
             margin-bottom: 1rem;
+            line-height: 1.1;
         }
         .hero p {
             font-size: 1.4rem;
             margin-bottom: 2rem;
+            opacity: 0.95;
         }
-        .cta-btn {
+        .coming-soon-badge {
+            display: inline-block;
             background: var(--accent);
             color: white;
-            padding: 14px 32px;
-            font-size: 1.2rem;
-            border: none;
+            padding: 8px 26px;
             border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
-        .cta-btn:hover {
-            background: #e65100;
-            transform: scale(1.05);
-        }
+
         section {
             padding: 80px 5%;
         }
         h2 {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             color: var(--green);
         }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+        .about-text {
+            max-width: 780px;
+            margin: 0 auto 40px;
+            font-size: 1.25rem;
             text-align: center;
         }
-        .product-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
+
+        .social-section {
+            text-align: center;
+            padding: 70px 5%;
+            background: white;
         }
-        .product-card h3 {
-            padding: 15px 10px 5px;
+        .social-icons a {
+            font-size: 3.2rem;
+            margin: 0 25px;
+            color: var(--green);
+            transition: all 0.3s;
         }
-        .add-to-cart {
-            background: var(--green);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            margin: 15px 0;
-            border-radius: 30px;
-            cursor: pointer;
+        .social-icons a:hover {
+            transform: scale(1.25);
+            color: var(--accent);
         }
-        .testimonial {
-            background: #f9f9f9;
-            padding: 40px;
-            border-radius: 12px;
-            font-style: italic;
-        }
+
         footer {
             background: var(--earth);
             color: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
         }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero-foreground { max-width: 360px; padding: 20px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- Header -->
     <header>
-        <div style="font-size: 1.8rem; font-weight: bold; color: white;">🌾 Your Farm Name</div>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#shop">Shop</a>
-            <a href="#visit">Visit Us</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <div class="logo">🌿 Finca Los Valles Verdes</div>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank">📘</a>
+            <a href="https://instagram.com" target="_blank">📷</a>
+        </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Hero with your new image in front -->
     <section class="hero">
+        <!-- Your new image (RxsbZO3.png from Danielb23) -->
+        <div class="hero-foreground">
+            <img src="RxsbZO3.png" alt="Finca Los Valles Verdes" />
+        </div>
+
         <div class="hero-content">
-            <h1>Fresh from Our Utah Family Farm</h1>
-            <p>Seasonal produce • Pasture-raised meats • Farm-fresh eggs • Memorable agritourism experiences</p>
-            <button class="cta-btn" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
-                Shop This Week's Harvest
-            </button>
-            <button class="cta-btn" style="background: white; color: var(--green); margin-left: 15px;" onclick="document.getElementById('visit').scrollIntoView({behavior: 'smooth'})">
-                Book a Visit
+            <div class="coming-soon-badge">PRÓXIMAMENTE</div>
+            <h1>Finca Los Valles Verdes</h1>
+            <p>Una finca familiar en los hermosos valles de Venezuela.<br>
+            Pronto podrás visitarnos y vivir experiencias auténticas de agroturismo en contacto con la naturaleza.</p>
+            
+            <button onclick="document.getElementById('nosotros').scrollIntoView({behavior: 'smooth'})" 
+                    style="background: white; color: var(--darkgreen); padding: 14px 34px; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
+                Conoce nuestra historia
             </button>
         </div>
     </section>
 
     <!-- About -->
-    <section id="about">
-        <h2>Our Story</h2>
-        <p style="max-width: 800px; margin: 0 auto 40px; text-align: center; font-size: 1.2rem;">
-            Welcome to Your Farm Name – a family-owned regenerative farm nestled in the beautiful valleys of Utah. 
-            We grow honest food with care for the soil, animals, and our community. From sun-ripened tomatoes to happy pasture-raised chickens, everything we offer is traceable from our fields to your table.
+    <section id="nosotros">
+        <h2>¿Quiénes Somos?</h2>
+        <p class="about-text">
+            Finca Los Valles Verdes es un proyecto familiar dedicado a la agricultura sostenible en Venezuela. 
+            Cultivamos con respeto por la tierra, cuidamos nuestros animales y soñamos con compartir la belleza del campo venezolano con familias y visitantes.<br><br>
+            Estamos trabajando con cariño para abrir nuestras puertas muy pronto.
         </p>
-        <!-- Add your real story, photos, and farmer bios here -->
     </section>
 
-    <!-- Shop / Products -->
-    <section id="shop" style="background: #f8f5f0;">
-        <h2>This Week's Fresh Harvest</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="https://picsum.photos/id/292/600/400" alt="Heirloom Tomatoes">
-                <h3>Heirloom Tomatoes</h3>
-                <p>$6.99 / lb • Just picked today</p>
-                <button class="add-to-cart" onclick="addToCart('Heirloom Tomatoes')">Add to Cart</button>
-            </div>
-            <div class="product-card">
-                <img src="https://picsum.photos/id/201/600/400" alt="Pasture-Raised Eggs">
-                <h3>Pasture-Raised Eggs</h3>
-                <p>$7.49 / dozen • From happy hens</p>
-                <button class="add-to-cart" onclick="addToCart('Pasture-Raised Eggs')">Add to Cart</button>
-            </div>
-            <div class="product-card">
-                <img src="https://picsum.photos/id/133/600/400" alt="CSA Box">
-                <h3>Weekly CSA Box</h3>
-                <p>$45 • Seasonal surprise</p>
-                <button class="add-to-cart" onclick="addToCart('Weekly CSA Box')">Join CSA</button>
-            </div>
-        </div>
-        <div style="text-align:center; margin-top: 40px;">
-            <button class="cta-btn" onclick="alert('In a real site this would link to full Shopify/Squarespace shop')">Browse Full Shop →</button>
+    <!-- Anticipation -->
+    <section style="background: white; text-align: center;">
+        <h2>Estamos casi listos...</h2>
+        <p style="max-width: 600px; margin: 0 auto 30px; font-size: 1.25rem;">
+            Muy pronto podrás reservar visitas, paseos guiados y días de recolección en la finca.
+        </p>
+        <div style="font-size: 1.4rem; color: var(--darkgreen);">
+            Mantente atento • Seguimos trabajando para ti 🌱
         </div>
     </section>
 
-    <!-- Visit / Experiences -->
-    <section id="visit">
-        <h2>Come Experience the Farm</h2>
-        <div style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-            <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <h3>U-Pick Days</h3>
-                <p>Berries, pumpkins & flowers in season. Fun for the whole family!</p>
-                <button class="cta-btn" style="font-size:1rem; padding:10px 20px;" onclick="alert('Booking form would open here')">Reserve Spot</button>
-            </div>
-            <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                <h3>Farm Tours & Workshops</h3>
-                <p>Learn regenerative farming, animal care, and how to preserve your harvest.</p>
-                <button class="cta-btn" style="font-size:1rem; padding:10px 20px;" onclick="alert('Booking form would open here')">Book a Tour</button>
-            </div>
+    <!-- Social -->
+    <section class="social-section">
+        <h2>Síguenos en redes sociales</h2>
+        <p style="font-size: 1.25rem; max-width: 550px; margin: 0 auto 40px;">
+            Sé el primero en enterarte cuando abramos las visitas y novedades de la finca.
+        </p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank">📘</a>
+            <a href="https://instagram.com" target="_blank">📷</a>
         </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section style="background: #f9f9f9;">
-        <h2>What Our Families Say</h2>
-        <div style="max-width: 800px; margin: 0 auto;">
-            <div class="testimonial">"The freshest produce we've ever had. Our kids actually eat their vegetables now!" – Sarah T., Salt Lake City</div>
-            <div class="testimonial" style="margin-top: 30px;">"The U-Pick day was magical. Can't wait to come back for the pumpkin patch!" – The Johnson Family</div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section style="background: var(--green); color: white; text-align: center;">
-        <h2 style="color:white;">Stay Connected to the Harvest</h2>
-        <p style="font-size: 1.3rem; max-width: 600px; margin: 0 auto 30px;">Get weekly updates on what's ripe, special offers, and farm events. First order gets 10% off!</p>
-        <input type="email" id="email" placeholder="Your email address" style="padding: 14px; width: 300px; border-radius: 30px; border: none; font-size: 1.1rem;">
-        <button class="cta-btn" style="margin-left: 10px;" onclick="subscribe()">Join Now</button>
     </section>
 
     <!-- Contact -->
-    <section id="contact">
-        <h2>Get in Touch</h2>
-        <p style="text-align:center; max-width: 600px; margin: 0 auto 40px;">Have questions about our products, CSA, or visiting the farm? We'd love to hear from you.</p>
-        <div style="max-width: 600px; margin: 0 auto;">
-            <form onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent (demo).');">
-                <input type="text" placeholder="Your Name" style="width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
-                <input type="email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
-                <textarea placeholder="Your message" rows="5" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;"></textarea>
-                <button type="submit" class="cta-btn" style="margin-top:15px;">Send Message</button>
+    <section id="contacto" style="background: #f8f5f0;">
+        <h2>¿Quieres más información?</h2>
+        <p style="text-align: center; max-width: 620px; margin: 0 auto 40px; font-size: 1.2rem;">
+            Déjanos tu correo y te avisaremos cuando estemos listos para recibirte.
+        </p>
+        <div style="max-width: 580px; margin: 0 auto;">
+            <form onsubmit="event.preventDefault(); alert('¡Gracias! Te contactaremos pronto cuando la finca esté lista.'); this.reset();" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" placeholder="Tu Nombre" required 
+                       style="padding: 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.05rem;">
+                <input type="email" placeholder="Correo Electrónico" required 
+                       style="padding: 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.05rem;">
+                <textarea placeholder="Mensaje (opcional)" rows="4" 
+                          style="padding: 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.05rem;"></textarea>
+                <button type="submit" 
+                        style="background: var(--green); color: white; padding: 16px; border: none; border-radius: 50px; font-size: 1.2rem; cursor: pointer;">
+                    Enviar Mensaje
+                </button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Your Farm Name • [Your City], Utah</p>
-        <p style="margin-top:10px;">Fresh • Sustainable • Local</p>
+        <p>&copy; 2026 Finca Los Valles Verdes • Venezuela</p>
+        <p style="margin-top: 12px; opacity: 0.9;">Pronto abriremos nuestras puertas al público 🌿</p>
     </footer>
 
     <script>
-        function addToCart(item) {
-            alert(`✅ Added ${item} to your cart! (In a real site this would update a shopping cart)`);
-        }
-        function subscribe() {
-            const email = document.getElementById('email').value;
-            if (email) {
-                alert(`Thank you! You've been subscribed with ${email}. Welcome to the farm family!`);
-            } else {
-                alert("Please enter your email");
-            }
-        }
-
-        // Simple smooth scroll for nav links (already handled with onclick in HTML)
         window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                document.querySelector('header').style.background = 'rgba(46, 125, 50, 0.95)';
+                header.style.background = 'rgba(46, 125, 50, 0.95)';
             } else {
-                document.querySelector('header').style.background = 'rgba(0,0,0,0.7)';
+                header.style.background = 'rgba(0,0,0,0.75)';
             }
         });
     </script>
