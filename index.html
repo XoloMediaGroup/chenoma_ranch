@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finca Los Valles Verdes | Próximamente</title>
+    <title>Chenoma Ranch | Próximamente</title>
     <style>
         :root {
             --green: #2e7d32;
@@ -51,31 +51,22 @@
             overflow: hidden;
         }
 
-        /* Clean foreground - only logo visible */
+        /* Transparent background - only the logo is visible */
         .hero-foreground {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 680px;
+            max-width: 880px;           /* Larger size */
             width: 92%;
             z-index: 2;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+			opacity: 0.5;
         }
         .hero-foreground img {
             width: 100%;
             height: auto;
             display: block;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            max-width: 800px;
-            padding: 0 20px;
-            margin-top: 260px;
+            background: transparent;    /* Ensures transparency */
         }
         .hero h1 {
             font-size: 3.5rem;
@@ -132,30 +123,18 @@
 
     <!-- Header -->
     <header>
-        <div class="logo">🌿 Finca Los Valles Verdes</div>
+        <div class="logo">Bienvenido</div>
         <div class="social-links">
             <a href="https://facebook.com" target="_blank">📘</a>
             <a href="https://instagram.com" target="_blank">📷</a>
         </div>
     </header>
 
-    <!-- Hero - Logo only -->
+    <!-- Hero - Only your logo PNG visible with transparent background -->
     <section class="hero">
         <div class="hero-foreground">
-            <img src="https://i.imgur.com/RxsbZO3.png" alt="Finca Los Valles Verdes">
-        </div>
-
-        <div class="hero-content">
-            <div class="coming-soon-badge">PRÓXIMAMENTE</div>
-            <h1>Finca Los Valles Verdes</h1>
-            <p>Una finca familiar en los hermosos valles de Venezuela.<br>
-            Pronto podrás visitarnos y vivir experiencias auténticas de agroturismo.</p>
-           
-            <button onclick="document.getElementById('nosotros').scrollIntoView({behavior: 'smooth'})"
-                    style="background: white; color: var(--darkgreen); padding: 14px 34px; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
-                Conoce nuestra historia
-            </button>
-        </div>
+            <img src="https://i.imgur.com/ZwBuyZK.png">
+		</div>
     </section>
 
     <!-- About -->
