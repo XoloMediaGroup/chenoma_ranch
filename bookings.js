@@ -1,5 +1,5 @@
 window.CHENOMA_BOOKINGS = {
-  whatsapp: "18019167763",
+  whatsapp: "584145230585",
   booked: [
     "2026-09-20",
     "2026-09-21",
