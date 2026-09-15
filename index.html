@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chenoma Ranch | Próximamente</title>
+    <meta name="description" content="Chenoma Ranch en Barinas, Venezuela. Paseos a caballo, moto cuatro ruedas y piscina. Próximamente abiertos a visitas.">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --green: #2e7d32;
             --darkgreen: #1b5e20;
             --accent: #f57c00;
+            --earth: #5d4037;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -21,27 +25,42 @@
             position: fixed;
             width: 100%;
             z-index: 1000;
-            padding: 1rem 5%;
+            padding: 0.75rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
-            font-size: 1.9rem;
-            font-weight: bold;
-            color: white;
+        .logo img {
+            height: 48px;
+            width: auto;
+            display: block;
         }
-        .social-links a {
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .header-links a {
             color: white;
-            font-size: 1.5rem;
-            margin-left: 18px;
+            font-size: 1.4rem;
             text-decoration: none;
+        }
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: white !important;
+            font-size: 0.95rem !important;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 50px;
         }
 
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), 
-                        url('https://i.imgur.com/D5ZOxq5.jpeg') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+                        url('images/hero.jpg') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,33 +69,17 @@
             position: relative;
             overflow: hidden;
         }
-
-        /* Transparent background - only the logo is visible */
         .hero-foreground {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 880px;           /* Larger size */
-            width: 92%;
+            position: relative;
             z-index: 2;
-			opacity: 0.5;
+            max-width: 520px;
+            width: 86%;
         }
         .hero-foreground img {
             width: 100%;
             height: auto;
             display: block;
-            background: transparent;    /* Ensures transparency */
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-        .hero p {
-            font-size: 1.35rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
+            margin: 0 auto 1.5rem;
         }
         .coming-soon-badge {
             display: inline-block;
@@ -84,61 +87,134 @@
             color: white;
             padding: 8px 26px;
             border-radius: 50px;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
+            font-size: 1.05rem;
+            margin-bottom: 16px;
             font-weight: 600;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 22px;
+            border-radius: 50px;
         }
 
         section {
             padding: 80px 5%;
         }
         h2 {
-            font-size: 2.6rem;
+            font-size: 2.4rem;
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             color: var(--green);
         }
         .about-text {
             max-width: 780px;
-            margin: 0 auto 40px;
-            font-size: 1.25rem;
+            margin: 0 auto;
+            font-size: 1.2rem;
             text-align: center;
         }
 
+        .activities {
+            background: #f7f3ee;
+        }
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+        .activity-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        .activity-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .activity-card h3 {
+            color: var(--darkgreen);
+            margin-bottom: 8px;
+        }
+
+        .social-section {
+            text-align: center;
+        }
+        .social-section p {
+            font-size: 1.2rem;
+            max-width: 550px;
+            margin: 0 auto 32px;
+        }
+        .social-section .icons {
+            font-size: 2.6rem;
+        }
+        .social-section .icons a {
+            color: var(--earth);
+            margin: 0 14px;
+            text-decoration: none;
+        }
+
         footer {
-            background: #5d4037;
+            background: var(--earth);
             color: white;
             text-align: center;
             padding: 50px 20px;
         }
+        footer a {
+            color: white;
+        }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.6rem; }
-            .hero-foreground { max-width: 460px; }
-            .hero-content { margin-top: 180px; }
+            .logo img { height: 38px; }
+            .whatsapp-btn span { display: none; }
+            .hero-foreground { max-width: 340px; }
+            .activity-grid { grid-template-columns: 1fr; }
+            h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <div class="logo">Bienvenidos</div>
-        <div class="social-links">
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-            <a href="https://www.instagram.com/ranchchenoma/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@chenoma.ranch" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a class="logo" href="#top" aria-label="Chenoma Ranch">
+            <img src="images/logo-white.png" alt="Chenoma Ranch">
+        </a>
+        <div class="header-links">
+            <a href="https://www.instagram.com/ranchchenoma/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@chenoma.ranch" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a class="whatsapp-btn" href="https://wa.me/584145230585" target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
         </div>
     </header>
 
-    <!-- Hero - Only your logo PNG visible with transparent background -->
-    <section class="hero">
+    <section class="hero" id="top">
         <div class="hero-foreground">
-            <img src="https://i.imgur.com/ZwBuyZK.png">
-		</div>
+            <img src="images/logo-white.png" alt="Chenoma Ranch">
+            <div class="coming-soon-badge">Próximamente</div>
+            <p>Barinas, Venezuela</p>
+            <a class="hero-cta" href="https://wa.me/584145230585" target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i>
+                Escríbenos
+            </a>
+        </div>
     </section>
 
-    <!-- About -->
     <section id="nosotros">
         <h2>¿Quiénes Somos?</h2>
         <p class="about-text">
@@ -148,33 +224,42 @@
         </p>
     </section>
 
-    <!-- Anticipation -->
-    <section style="background: white; text-align: center;">
-        <h2>Estamos casi listos...</h2>
-        <p style="max-width: 600px; margin: 0 auto 30px; font-size: 1.25rem;">
-            Muy pronto podrás reservar visitas, paseos guiados y días de recolección en la finca.
-        </p>
-        <div style="font-size: 1.4rem; color: var(--darkgreen);">
-            Mantente atento • Seguimos trabajando para ti 🌱
+    <section class="activities" id="actividades">
+        <h2>Lo que te espera</h2>
+        <div class="activity-grid">
+            <article class="activity-card">
+                <i class="fas fa-horse"></i>
+                <h3>Paseo a caballo</h3>
+                <p>Salidas por el llano, al ritmo del campo.</p>
+            </article>
+            <article class="activity-card">
+                <i class="fas fa-motorcycle"></i>
+                <h3>Moto 4 ruedas</h3>
+                <p>Cuatrimoto entre tierra, polvo y horizonte.</p>
+            </article>
+            <article class="activity-card">
+                <i class="fas fa-water"></i>
+                <h3>Piscina</h3>
+                <p>Agua, hamacas y el atardecer del llano.</p>
+            </article>
         </div>
     </section>
 
-    <!-- Social -->
-    <section style="text-align: center; padding: 70px 5%; background: white;">
+    <section class="social-section">
         <h2>Síguenos en redes sociales</h2>
-        <p style="font-size: 1.25rem; max-width: 550px; margin: 0 auto 40px;">
-            Sé el primero en enterarte cuando abramos las visitas y novedades de la finca.
-        </p>
-        <div style="font-size: 3.2rem;">
-            <a href="https://www.instagram.com/ranchchenoma/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@chenoma.ranch" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <p>Sé el primero en enterarte cuando abramos las visitas y novedades de la finca.</p>
+        <div class="icons">
+            <a href="https://www.instagram.com/ranchchenoma/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@chenoma.ranch" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/584145230585" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; Chenoma Ranch • Barinas • Venezuela</p>
-        <p style="margin-top: 12px; opacity: 0.9;">Visitanos Pronto</p>
+        <p style="margin-top: 12px; opacity: 0.9;">
+            <a href="https://wa.me/584145230585">0414-5230585</a> • Visítanos pronto
+        </p>
     </footer>
 
     <script>
