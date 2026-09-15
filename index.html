@@ -182,32 +182,118 @@
             margin: 0 auto 28px;
         }
 
+        #nosotros {
+            background:
+                radial-gradient(ellipse at 12% 20%, rgba(212,180,131,0.22), transparent 46%),
+                linear-gradient(180deg, #f3eadc 0%, var(--cream) 100%);
+        }
         .about {
             display: grid;
             grid-template-columns: 1.05fr 0.95fr;
-            gap: 56px;
-            max-width: 1080px;
+            gap: 64px;
+            max-width: 1120px;
             margin: 0 auto;
             align-items: center;
         }
         .about-copy h2,
         .about-copy .kicker,
         .about-copy .gold-rule { text-align: left; margin-left: 0; }
+        .about-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+        .about-brand img {
+            width: 72px;
+            height: auto;
+        }
+        .about-quote {
+            font-family: "Fraunces", Georgia, serif;
+            font-style: italic;
+            font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+            font-weight: 500;
+            line-height: 1.35;
+            color: var(--ink);
+            border-left: 2px solid var(--gold);
+            padding: 4px 0 4px 18px;
+            margin: 0 0 22px;
+            max-width: 34rem;
+        }
         .about-text {
-            font-size: 1.12rem;
+            font-size: 1.08rem;
             color: #4a4036;
             max-width: 36rem;
+            margin-bottom: 22px;
+        }
+        .about-points {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            max-width: 36rem;
+        }
+        .about-points div {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(212,180,131,0.45);
+            border-radius: 6px;
+            padding: 12px 10px;
+        }
+        .about-points span {
+            display: block;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--sunset);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .about-points strong {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: 1.02rem;
+            font-weight: 600;
+        }
+        .about-photo-wrap {
+            position: relative;
+            padding: 18px 0 0 18px;
+        }
+        .about-photo-wrap::before {
+            content: "";
+            position: absolute;
+            inset: 0 18px 18px 0;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
         }
         .about-photo {
-            border-radius: 8px;
+            position: relative;
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 24px 50px rgba(28,22,16,0.18);
+            box-shadow: 0 28px 60px rgba(28,22,16,0.22);
         }
         .about-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            min-height: 420px;
+            min-height: 480px;
+        }
+        .about-photo figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 12px;
+            padding: 48px 18px 16px;
+            background: linear-gradient(transparent, rgba(28,22,16,0.72));
+            color: var(--cream);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .about-photo .stamp {
+            width: 86px;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
         }
 
         .activities { background: var(--cream); }
@@ -452,8 +538,13 @@
             .about-copy h2,
             .about-copy .kicker { text-align: center; }
             .about-copy .gold-rule { margin-left: auto; margin-right: auto; }
-            .about-text { margin: 0 auto; text-align: center; }
-            .about-photo img { min-height: 280px; }
+            .about-brand { justify-content: center; }
+            .about-brand .kicker { text-align: center !important; }
+            .about-quote,
+            .about-text { margin-left: auto; margin-right: auto; text-align: center; }
+            .about-quote { border-left: 0; border-top: 2px solid var(--gold); padding: 16px 8px 0; }
+            .about-points { margin: 0 auto; }
+            .about-photo img { min-height: 320px; }
             .nav-link { display: none; }
         }
         @media (max-width: 640px) {
@@ -497,18 +588,44 @@
     <section id="nosotros">
         <div class="about">
             <div class="about-copy">
-                <span class="kicker">El rancho</span>
+                <div class="about-brand">
+                    <img src="images/logo.png" alt="">
+                    <span class="kicker" style="margin: 0; text-align: left;">El rancho</span>
+                </div>
                 <h2>¿Quiénes somos?</h2>
                 <div class="gold-rule"></div>
+                <blockquote class="about-quote">
+                    Compartir la belleza del campo venezolano con familias y visitantes.
+                </blockquote>
                 <p class="about-text">
                     Chenoma Ranch es un proyecto familiar dedicado a la agricultura sostenible en Venezuela.
-                    Cultivamos con respeto por la tierra, cuidamos nuestros animales y soñamos con compartir
-                    la belleza del campo venezolano con familias y visitantes.
+                    Cultivamos con respeto por la tierra, cuidamos nuestros animales y preparamos el rancho
+                    para abrir las puertas con cariño.
                 </p>
+                <div class="about-points">
+                    <div>
+                        <span>Lugar</span>
+                        <strong>Barinas</strong>
+                    </div>
+                    <div>
+                        <span>Origen</span>
+                        <strong>Familiar</strong>
+                    </div>
+                    <div>
+                        <span>Visitas</span>
+                        <strong>Al rancho</strong>
+                    </div>
+                </div>
             </div>
-            <figure class="about-photo">
-                <img src="images/hero.jpg" alt="Piscina y atardecer en Chenoma Ranch">
-            </figure>
+            <div class="about-photo-wrap">
+                <figure class="about-photo">
+                    <img src="images/hero.jpg" alt="Piscina y atardecer en Chenoma Ranch">
+                    <figcaption>
+                        <span>Atardecer en el llano</span>
+                        <img class="stamp" src="images/logo-white.png" alt="">
+                    </figcaption>
+                </figure>
+            </div>
         </div>
     </section>
 
