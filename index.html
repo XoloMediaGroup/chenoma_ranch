@@ -316,39 +316,7 @@
         }
         .activity-card p { color: var(--muted); }
 
-        .gallery { background: var(--cream); }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            max-width: 1080px;
-            margin: 0 auto;
-        }
-        .gallery-grid figure {
-            position: relative;
-            overflow: hidden;
-            border-radius: 6px;
-            min-height: 220px;
-        }
-        .gallery-grid img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            min-height: 220px;
-            aspect-ratio: 4 / 3;
-        }
-        .gallery-grid figcaption {
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            padding: 28px 14px 12px;
-            background: linear-gradient(transparent, rgba(28,22,16,0.72));
-            color: var(--cream);
-            font-size: 0.78rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .events { background: var(--paper); }
+        .events { background: var(--cream); }
         .event-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -600,7 +568,6 @@
             .about,
             .reservas-layout,
             .activity-grid,
-            .gallery-grid,
             .event-grid { grid-template-columns: 1fr; }
             .about-copy h2,
             .about-copy .kicker { text-align: center; }
@@ -719,45 +686,13 @@
         </div>
     </section>
 
-    <section class="gallery" id="galeria">
-        <span class="kicker">El rancho</span>
-        <h2>Así se vive Chenoma</h2>
-        <div class="gold-rule"></div>
-        <div class="gallery-grid">
-            <figure>
-                <img src="images/pool.jpg" alt="Piscina de Chenoma Ranch al atardecer">
-                <figcaption>Piscina</figcaption>
-            </figure>
-            <figure>
-                <img src="images/patio.jpg" alt="Patio cubierto y hamaca en Chenoma Ranch">
-                <figcaption>Patio</figcaption>
-            </figure>
-            <figure>
-                <img src="images/food.jpg" alt="Comida llanera en Chenoma Ranch">
-                <figcaption>Comida</figcaption>
-            </figure>
-            <figure>
-                <img src="images/drinks.jpg" alt="Bebidas en el patio de Chenoma Ranch">
-                <figcaption>Bebidas</figcaption>
-            </figure>
-            <figure>
-                <img src="images/salon.jpg" alt="Salón del rancho listo para una reunión">
-                <figcaption>Salón</figcaption>
-            </figure>
-            <figure>
-                <img src="images/party.jpg" alt="Espacio para fiestas junto a la piscina">
-                <figcaption>Fiestas</figcaption>
-            </figure>
-        </div>
-    </section>
-
     <section class="events" id="fiestas">
         <span class="kicker">Eventos</span>
         <h2>Alquiler para fiestas y reuniones</h2>
         <div class="gold-rule"></div>
         <div class="event-grid">
             <article class="event-card">
-                <img src="images/party.jpg" alt="Alquiler para fiestas en Chenoma Ranch">
+                <img src="images/hero.jpg" alt="Alquiler para fiestas en Chenoma Ranch">
                 <div class="body">
                     <h3>Alquiler para fiestas</h3>
                     <p>Cumpleaños, pool parties y celebraciones en el rancho. Piscina, patio con luces y el atardecer del llano. Reservamos el día completo para tu grupo.</p>
@@ -765,7 +700,7 @@
                 </div>
             </article>
             <article class="event-card">
-                <img src="images/salon.jpg" alt="Reuniones familiares en Chenoma Ranch">
+                <img src="images/hero.jpg" alt="Reuniones familiares en Chenoma Ranch">
                 <div class="body">
                     <h3>Reuniones</h3>
                     <p>Encuentros familiares, almuerzos y reuniones de trabajo en un espacio abierto. Mesas bajo techo, comida llanera y tiempo para quedarse.</p>
