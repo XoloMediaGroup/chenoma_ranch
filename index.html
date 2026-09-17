@@ -336,6 +336,9 @@
             height: 240px;
             object-fit: cover;
         }
+        .event-card img.food {
+            object-position: center 72%;
+        }
         .event-card .body { padding: 28px 26px 26px; }
         .event-card h3 {
             font-family: "Fraunces", Georgia, serif;
@@ -358,32 +361,132 @@
         }
 
         .gallery { background: var(--cream); }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            max-width: 1080px;
-            margin: 0 auto 28px;
+        .gallery-slider {
+            max-width: 1120px;
+            margin: 0 auto 8px;
         }
-        .gallery-grid figure {
+        .gallery-stage {
             position: relative;
+            height: clamp(280px, 46vw, 460px);
             overflow: hidden;
-            border-radius: 6px;
         }
-        .gallery-grid img {
+        .gallery-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: min(46%, 520px);
+            aspect-ratio: 16 / 10;
+            margin: 0;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #2a2118;
+            transform: translate(-50%, -50%) scale(0.62);
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 16px 36px rgba(28,22,16,0.18);
+            transition: transform 0.55s ease, opacity 0.4s ease, box-shadow 0.45s ease;
+        }
+        .gallery-card.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        .gallery-card.is-active {
+            cursor: default;
+            box-shadow: 0 24px 50px rgba(28,22,16,0.28);
+        }
+        .gallery-card img,
+        .gallery-card video {
             width: 100%;
-            height: 220px;
+            height: 100%;
             object-fit: cover;
+            display: block;
         }
-        .gallery-grid figcaption {
+        .gallery-card img.portrait,
+        .gallery-card video.portrait {
+            object-position: center 72%;
+        }
+        .gallery-card figcaption {
             position: absolute;
             left: 0; right: 0; bottom: 0;
-            padding: 28px 14px 12px;
-            background: linear-gradient(transparent, rgba(28,22,16,0.72));
-            color: var(--cream);
-            font-size: 0.78rem;
-            letter-spacing: 0.1em;
+            padding: 52px 24px 20px;
+            background: linear-gradient(transparent, rgba(28,22,16,0.78));
+            color: white;
+            pointer-events: none;
+        }
+        .gallery-card figcaption span {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
+            color: var(--gold-bright);
+            margin-bottom: 4px;
+        }
+        .gallery-card figcaption strong {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            font-weight: 600;
+        }
+        .gallery-play {
+            position: absolute;
+            right: 16px;
+            bottom: 18px;
+            z-index: 2;
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.94);
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            pointer-events: none;
+        }
+        .gallery-card.is-active.is-playing .gallery-play {
+            opacity: 0;
+        }
+        .gallery-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 18px 0 10px;
+        }
+        .gallery-arrow {
+            width: 46px;
+            height: 46px;
+            border: 0;
+            border-radius: 50%;
+            background: white;
+            color: var(--ink);
+            box-shadow: 0 8px 20px rgba(28,22,16,0.14);
+            cursor: pointer;
+        }
+        .gallery-arrow:hover { background: var(--gold-bright); }
+        .gallery-dots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            max-width: 280px;
+        }
+        .gallery-dots button {
+            width: 8px;
+            height: 8px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.35;
+            cursor: pointer;
+        }
+        .gallery-dots button.active {
+            opacity: 1;
+            background: var(--sunset);
+        }
+        .gallery-block {
+            margin-top: 64px;
         }
         .gallery-link {
             display: block;
@@ -394,6 +497,7 @@
             text-transform: uppercase;
             font-size: 0.82rem;
             text-decoration: none;
+            margin-top: 12px;
         }
 
         .reservas { background: var(--paper); }
@@ -607,8 +711,10 @@
             .about,
             .reservas-layout,
             .activity-grid,
-            .event-grid,
-            .gallery-grid { grid-template-columns: 1fr; }
+            .event-grid { grid-template-columns: 1fr; }
+            .gallery-stage { height: clamp(240px, 58vw, 340px); }
+            .gallery-card { width: min(62%, 420px); }
+            .gallery-card figcaption { padding: 40px 18px 16px; }
             .about-copy h2,
             .about-copy .kicker { text-align: center; }
             .about-copy .gold-rule { margin-left: auto; margin-right: auto; }
@@ -650,7 +756,7 @@
     </header>
 
     <section class="hero" id="top">
-        <img class="hero-photo" src="images/hero.jpg" alt="Atardecer en la piscina de Chenoma Ranch">
+        <img class="hero-photo" src="images/rancho-atardecer.jpg" alt="Atardecer en la piscina de Chenoma Ranch">
         <div class="hero-overlay"></div>
         <div class="hero-foreground">
             <img class="mark" src="images/logo-white.png" alt="Chenoma Ranch">
@@ -694,7 +800,7 @@
             </div>
             <div class="about-photo-wrap">
                 <figure class="about-photo">
-                    <img src="images/pool-day.jpg" alt="Piscina de Chenoma Ranch de día">
+                    <img src="images/rancho-piscina.jpg" alt="Piscina de Chenoma Ranch de día">
                     <figcaption>
                         <span>Piscina en el llano</span>
                     </figcaption>
@@ -742,7 +848,7 @@
         <div class="gold-rule"></div>
         <div class="event-grid">
             <article class="event-card">
-                <img src="images/fiesta-piscina.jpg" alt="Fiesta en la piscina de Chenoma Ranch">
+                <img src="images/pool-day.jpg" alt="Piscina de Chenoma Ranch para fiestas">
                 <div class="body">
                     <h3>Fiestas</h3>
                     <p>Cumpleaños, pool parties y celebraciones en el rancho. Piscina, patio con luces y el atardecer del llano. Reservamos el día para tu grupo.</p>
@@ -750,7 +856,7 @@
                 </div>
             </article>
             <article class="event-card">
-                <img src="images/salon.jpg" alt="Salón de Chenoma Ranch para reuniones">
+                <img src="images/noche-mesas.jpg" alt="Salón de Chenoma Ranch para reuniones">
                 <div class="body">
                     <h3>Reuniones</h3>
                     <p>Encuentros familiares, almuerzos y reuniones en un espacio abierto. Mesas bajo techo y tiempo para quedarse.</p>
@@ -758,7 +864,7 @@
                 </div>
             </article>
             <article class="event-card">
-                <img src="images/comida.jpg" alt="Comida llanera en Chenoma Ranch">
+                <img class="food" src="images/comida-parrilla.jpg" alt="Parrilla junto a la piscina de Chenoma Ranch">
                 <div class="body">
                     <h3>Comida y bebidas</h3>
                     <p>Cochino frito, tostones y bebidas frías junto a la piscina. Lo coordinamos al confirmar tu reserva por WhatsApp.</p>
@@ -772,31 +878,124 @@
         <span class="kicker">El rancho</span>
         <h2>Así se vive Chenoma</h2>
         <div class="gold-rule"></div>
-        <div class="gallery-grid">
-            <figure>
-                <img src="images/pool-day.jpg" alt="Piscina de Chenoma Ranch de día">
-                <figcaption>Piscina</figcaption>
-            </figure>
-            <figure>
-                <img src="images/hero.jpg" alt="Atardecer en la piscina de Chenoma Ranch">
-                <figcaption>Atardecer</figcaption>
-            </figure>
-            <figure>
-                <img src="images/salon.jpg" alt="Salón cubierto de Chenoma Ranch">
-                <figcaption>Salón</figcaption>
-            </figure>
-            <figure>
-                <img src="images/comida.jpg" alt="Comida llanera en Chenoma Ranch">
-                <figcaption>Comida</figcaption>
-            </figure>
-            <figure>
-                <img src="images/bebidas.jpg" alt="Bebidas junto a la piscina">
-                <figcaption>Bebidas</figcaption>
-            </figure>
-            <figure>
-                <img src="images/fiesta-piscina.jpg" alt="Fiesta en la piscina">
-                <figcaption>Fiestas</figcaption>
-            </figure>
+        <div class="gallery-slider" id="gallery-slider">
+            <div class="gallery-stage">
+                <figure class="gallery-card">
+                    <img src="images/rancho-piscina.jpg" alt="Piscina de Chenoma Ranch de día">
+                    <figcaption><span>El rancho</span><strong>Piscina</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/rancho-salon.jpg" alt="Salón cubierto de Chenoma Ranch">
+                    <figcaption><span>El rancho</span><strong>Salón</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/rancho-atardecer.jpg" alt="Atardecer en la piscina de Chenoma Ranch">
+                    <figcaption><span>El rancho</span><strong>Atardecer</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/rancho-fiesta.jpg" alt="Fiesta en la piscina de Chenoma Ranch">
+                    <figcaption><span>El rancho</span><strong>Fiestas</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/rancho-avestruz.jpg" alt="Avestruz en Chenoma Ranch">
+                    <figcaption><span>El rancho</span><strong>Avestruz</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/rancho-avestruces.jpg" alt="Avestruces en Chenoma Ranch">
+                    <figcaption><span>El rancho</span><strong>Avestruces</strong></figcaption>
+                </figure>
+                <figure class="gallery-card is-video">
+                    <video src="images/video-1.mp4" muted loop playsinline preload="metadata"></video>
+                    <span class="gallery-play"><i class="fas fa-play"></i></span>
+                    <figcaption><span>El rancho</span><strong>Video</strong></figcaption>
+                </figure>
+                <figure class="gallery-card is-video">
+                    <video src="images/video-2.mp4" muted loop playsinline preload="metadata"></video>
+                    <span class="gallery-play"><i class="fas fa-play"></i></span>
+                    <figcaption><span>El rancho</span><strong>Video</strong></figcaption>
+                </figure>
+                <figure class="gallery-card is-video">
+                    <video src="images/video-3.mp4" muted loop playsinline preload="metadata"></video>
+                    <span class="gallery-play"><i class="fas fa-play"></i></span>
+                    <figcaption><span>El rancho</span><strong>Video</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/noche-bar.jpg" alt="Bar de Chenoma Ranch de noche">
+                    <figcaption><span>De noche</span><strong>Bar</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/noche-mesas.jpg" alt="Mesas del salón de noche">
+                    <figcaption><span>De noche</span><strong>Reuniones</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/noche-piscina.jpg" alt="Piscina de Chenoma Ranch de noche">
+                    <figcaption><span>De noche</span><strong>Piscina</strong></figcaption>
+                </figure>
+                <figure class="gallery-card">
+                    <img src="images/noche-crepusculo.jpg" alt="Salón al atardecer en Chenoma Ranch">
+                    <figcaption><span>De noche</span><strong>Atardecer</strong></figcaption>
+                </figure>
+            </div>
+            <div class="gallery-controls">
+                <button class="gallery-arrow" type="button" data-gallery-prev aria-label="Foto anterior"><i class="fas fa-chevron-left"></i></button>
+                <div class="gallery-dots" data-gallery-dots></div>
+                <button class="gallery-arrow" type="button" data-gallery-next aria-label="Foto siguiente"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="gallery-block" id="comida-fotos">
+            <span class="kicker">La mesa</span>
+            <h2>Comida y bebidas</h2>
+            <div class="gold-rule"></div>
+            <div class="gallery-slider" id="food-slider">
+                <div class="gallery-stage">
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-cerdo.jpg" alt="Cerdo frito con papas en Chenoma Ranch">
+                        <figcaption><span>Comida</span><strong>Cerdo frito</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-parrilla.jpg" alt="Parrilla con papas en Chenoma Ranch">
+                        <figcaption><span>Comida</span><strong>Parrilla</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-tostones.jpg" alt="Tostones rellenos en Chenoma Ranch">
+                        <figcaption><span>Comida</span><strong>Tostones</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-pechuga.jpg" alt="Pechuga rellena en Chenoma Ranch">
+                        <figcaption><span>Comida</span><strong>Pechuga</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-pollo.jpg" alt="Pollo frito junto a la piscina">
+                        <figcaption><span>Comida</span><strong>Pollo</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-sopa.jpg" alt="Sopa y Polar Light junto a la piscina">
+                        <figcaption><span>Comida</span><strong>Sopa</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/comida-nachos.jpg" alt="Nachos junto a la piscina">
+                        <figcaption><span>Comida</span><strong>Nachos</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img class="portrait" src="images/noche-hamburguesa.jpg" alt="Hamburguesa en el bar de Chenoma Ranch">
+                        <figcaption><span>Comida</span><strong>Hamburguesa</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="images/fiesta-piscina.jpg" alt="Licores junto a la piscina de Chenoma Ranch">
+                        <figcaption><span>Bebidas</span><strong>Licores</strong></figcaption>
+                    </figure>
+                    <figure class="gallery-card">
+                        <img src="images/bebidas.jpg" alt="Bebidas frías junto a la piscina">
+                        <figcaption><span>Bebidas</span><strong>Polar Light</strong></figcaption>
+                    </figure>
+                </div>
+                <div class="gallery-controls">
+                    <button class="gallery-arrow" type="button" data-gallery-prev aria-label="Foto anterior"><i class="fas fa-chevron-left"></i></button>
+                    <div class="gallery-dots" data-gallery-dots></div>
+                    <button class="gallery-arrow" type="button" data-gallery-next aria-label="Foto siguiente"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
         </div>
         <a class="gallery-link" href="https://www.instagram.com/ranchchenoma/" target="_blank" rel="noopener">Más fotos en Instagram @ranchchenoma</a>
     </section>
@@ -1046,6 +1245,83 @@
         });
 
         renderCalendar();
+
+        function setupCoverflow(slider) {
+            const cards = [...slider.querySelectorAll('.gallery-card')];
+            const dotsWrap = slider.querySelector('[data-gallery-dots]');
+            const total = cards.length;
+            let index = 0;
+            let startX = 0;
+
+            cards.forEach((card, i) => {
+                const title = card.querySelector('strong');
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', title ? title.textContent : `Foto ${i + 1}`);
+                dot.addEventListener('click', () => go(i));
+                dotsWrap.appendChild(dot);
+                card.addEventListener('click', () => {
+                    if (i !== index) go(i);
+                });
+            });
+
+            function offsetFor(i) {
+                let offset = i - index;
+                const half = Math.floor(total / 2);
+                if (offset > half) offset -= total;
+                if (offset < -half) offset += total;
+                return offset;
+            }
+
+            function go(n) {
+                index = (n + total) % total;
+                const reach = window.innerWidth < 640 ? 1 : 2;
+                const cardW = cards[0].getBoundingClientRect().width || 480;
+                const spread = cardW * (window.innerWidth < 900 ? 0.52 : 0.58);
+
+                cards.forEach((card, i) => {
+                    const offset = offsetFor(i);
+                    const abs = Math.abs(offset);
+                    const visible = abs <= reach;
+                    const scale = offset === 0 ? 1.08 : abs === 1 ? 0.82 : 0.68;
+                    card.classList.toggle('is-visible', visible);
+                    card.classList.toggle('is-active', offset === 0);
+                    card.style.zIndex = visible ? String(20 - abs) : '0';
+                    card.style.transform = visible
+                        ? `translate(-50%, -50%) translateX(${offset * spread}px) scale(${scale})`
+                        : 'translate(-50%, -50%) scale(0.6)';
+
+                    const video = card.querySelector('video');
+                    if (!video) return;
+                    if (offset === 0) {
+                        video.play().then(() => card.classList.add('is-playing')).catch(() => {});
+                    } else {
+                        video.pause();
+                        card.classList.remove('is-playing');
+                    }
+                });
+
+                dotsWrap.querySelectorAll('button').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            slider.querySelector('[data-gallery-prev]').addEventListener('click', () => go(index - 1));
+            slider.querySelector('[data-gallery-next]').addEventListener('click', () => go(index + 1));
+            window.addEventListener('resize', () => go(index), { passive: true });
+
+            slider.addEventListener('touchstart', (event) => {
+                startX = event.changedTouches[0].clientX;
+            }, { passive: true });
+            slider.addEventListener('touchend', (event) => {
+                const dx = event.changedTouches[0].clientX - startX;
+                if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+            }, { passive: true });
+
+            go(0);
+        }
+
+        document.querySelectorAll('.gallery-slider').forEach(setupCoverflow);
     </script>
 </body>
 </html>
