@@ -367,19 +367,19 @@
         }
         .gallery-stage {
             position: relative;
-            height: clamp(280px, 46vw, 460px);
+            height: clamp(340px, 52vw, 560px);
             overflow: hidden;
         }
         .gallery-card {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: min(46%, 520px);
-            aspect-ratio: 16 / 10;
+            width: auto;
+            height: auto;
             margin: 0;
             border-radius: 8px;
             overflow: hidden;
-            background: #2a2118;
+            background: transparent;
             transform: translate(-50%, -50%) scale(0.62);
             opacity: 0;
             pointer-events: none;
@@ -392,19 +392,16 @@
             cursor: pointer;
         }
         .gallery-card.is-active {
-            cursor: default;
+            cursor: zoom-in;
             box-shadow: 0 24px 50px rgba(28,22,16,0.28);
         }
         .gallery-card img,
         .gallery-card video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
             display: block;
-        }
-        .gallery-card img.portrait,
-        .gallery-card video.portrait {
-            object-position: center 72%;
+            width: auto;
+            height: auto;
+            max-width: min(62vw, 720px);
+            max-height: clamp(280px, 42vw, 460px);
         }
         .gallery-card figcaption {
             position: absolute;
@@ -498,6 +495,66 @@
             font-size: 0.82rem;
             text-decoration: none;
             margin-top: 12px;
+        }
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 56px 72px 32px;
+            background: rgba(28, 22, 16, 0.94);
+        }
+        .lightbox.is-open { display: flex; }
+        .lightbox-close,
+        .lightbox-nav {
+            position: absolute;
+            border: 0;
+            background: white;
+            color: var(--ink);
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(28,22,16,0.24);
+        }
+        .lightbox-close {
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+        .lightbox-nav {
+            top: 50%;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
+        .lightbox-close:hover,
+        .lightbox-nav:hover { background: var(--gold-bright); }
+        .lightbox figure {
+            margin: 0;
+            max-width: 100%;
+            text-align: center;
+        }
+        .lightbox img,
+        .lightbox video {
+            max-width: min(92vw, 1400px);
+            max-height: 82vh;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 18px 48px rgba(0,0,0,0.35);
+        }
+        .lightbox figcaption {
+            margin-top: 12px;
+            color: var(--gold-bright);
+            font-size: 0.92rem;
+            letter-spacing: 0.06em;
         }
 
         .reservas { background: var(--paper); }
@@ -712,9 +769,19 @@
             .reservas-layout,
             .activity-grid,
             .event-grid { grid-template-columns: 1fr; }
-            .gallery-stage { height: clamp(240px, 58vw, 340px); }
-            .gallery-card { width: min(62%, 420px); }
+            .gallery-stage { height: clamp(280px, 64vw, 400px); }
+            .gallery-card img,
+            .gallery-card video {
+                max-width: min(82vw, 460px);
+                max-height: clamp(230px, 52vw, 320px);
+            }
             .gallery-card figcaption { padding: 24px 18px 14px; }
+            .lightbox { padding: 56px 12px 24px; }
+            .lightbox-nav { width: 40px; height: 40px; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+            .lightbox img,
+            .lightbox video { max-height: 74vh; }
             .about-copy h2,
             .about-copy .kicker { text-align: center; }
             .about-copy .gold-rule { margin-left: auto; margin-right: auto; }
@@ -1084,6 +1151,17 @@
         </p>
     </footer>
 
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+        <button class="lightbox-close" type="button" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav lightbox-prev" type="button" data-lightbox-prev aria-label="Foto anterior"><i class="fas fa-chevron-left"></i></button>
+        <figure>
+            <img alt="" hidden>
+            <video controls playsinline hidden></video>
+            <figcaption></figcaption>
+        </figure>
+        <button class="lightbox-nav lightbox-next" type="button" data-lightbox-next aria-label="Foto siguiente"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
     <script src="bookings.js"></script>
     <script>
         const header = document.querySelector('header');
@@ -1246,6 +1324,84 @@
 
         renderCalendar();
 
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxVideo = lightbox.querySelector('video');
+        const lightboxCaption = lightbox.querySelector('figcaption');
+        let lightboxContext = null;
+
+        function showLightboxCard(card) {
+            const image = card.querySelector('img');
+            const video = card.querySelector('video');
+            const kicker = card.querySelector('figcaption span');
+            const title = card.querySelector('figcaption strong');
+            lightboxCaption.textContent = [kicker && kicker.textContent, title && title.textContent]
+                .filter(Boolean)
+                .join(' · ');
+
+            if (video) {
+                lightboxImg.hidden = true;
+                lightboxImg.removeAttribute('src');
+                lightboxVideo.hidden = false;
+                lightboxVideo.src = video.currentSrc || video.getAttribute('src');
+                const startAt = video.currentTime || 0;
+                lightboxVideo.addEventListener('loadedmetadata', () => {
+                    lightboxVideo.currentTime = startAt;
+                    lightboxVideo.play().catch(() => {});
+                }, { once: true });
+            } else {
+                lightboxVideo.pause();
+                lightboxVideo.removeAttribute('src');
+                lightboxVideo.hidden = true;
+                lightboxImg.hidden = false;
+                lightboxImg.src = image.src;
+                lightboxImg.alt = image.alt || '';
+            }
+        }
+
+        function openLightbox(card, cards, go, getIndex) {
+            lightboxContext = { cards, go, getIndex };
+            showLightboxCard(card);
+            lightbox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            if (!lightbox.classList.contains('is-open')) return;
+            lightbox.classList.remove('is-open');
+            lightboxVideo.pause();
+            lightboxVideo.removeAttribute('src');
+            document.body.style.overflow = '';
+            lightboxContext = null;
+        }
+
+        function lightboxStep(dir) {
+            if (!lightboxContext) return;
+            const { cards, go, getIndex } = lightboxContext;
+            const next = (getIndex() + dir + cards.length) % cards.length;
+            go(next);
+            showLightboxCard(cards[next]);
+        }
+
+        lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+        lightbox.querySelector('[data-lightbox-prev]').addEventListener('click', (event) => {
+            event.stopPropagation();
+            lightboxStep(-1);
+        });
+        lightbox.querySelector('[data-lightbox-next]').addEventListener('click', (event) => {
+            event.stopPropagation();
+            lightboxStep(1);
+        });
+        lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (!lightbox.classList.contains('is-open')) return;
+            if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowLeft') lightboxStep(-1);
+            if (event.key === 'ArrowRight') lightboxStep(1);
+        });
+
         function setupCoverflow(slider) {
             const cards = [...slider.querySelectorAll('.gallery-card')];
             const dotsWrap = slider.querySelector('[data-gallery-dots]');
@@ -1262,7 +1418,12 @@
                 dotsWrap.appendChild(dot);
                 card.addEventListener('click', () => {
                     if (i !== index) go(i);
+                    else openLightbox(card, cards, go, () => index);
                 });
+                const media = card.querySelector('img, video');
+                if (!media) return;
+                media.addEventListener('load', () => go(index));
+                media.addEventListener('loadedmetadata', () => go(index));
             });
 
             function offsetFor(i) {
@@ -1276,14 +1437,15 @@
             function go(n) {
                 index = (n + total) % total;
                 const reach = window.innerWidth < 640 ? 1 : 2;
-                const cardW = cards[0].getBoundingClientRect().width || 480;
-                const spread = cardW * (window.innerWidth < 900 ? 0.52 : 0.58);
+                const mobile = window.innerWidth < 900;
+                const cardW = Math.max(280, ...cards.map((card) => card.getBoundingClientRect().width));
+                const spread = cardW * (mobile ? 0.48 : 0.52);
 
                 cards.forEach((card, i) => {
                     const offset = offsetFor(i);
                     const abs = Math.abs(offset);
                     const visible = abs <= reach;
-                    const scale = offset === 0 ? 1.08 : abs === 1 ? 0.82 : 0.68;
+                    const scale = offset === 0 ? (mobile ? 1.14 : 1.2) : abs === 1 ? 0.78 : 0.64;
                     card.classList.toggle('is-visible', visible);
                     card.classList.toggle('is-active', offset === 0);
                     card.style.zIndex = visible ? String(20 - abs) : '0';
